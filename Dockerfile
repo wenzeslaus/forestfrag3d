@@ -104,7 +104,7 @@ RUN useradd -m -U grass
 VOLUME ["/data"]
 
 # add repository files to the image
-ADD . /code
+COPY . /code
 
 # change the owner so that the user can execute
 RUN chown -R grass:grass /code
