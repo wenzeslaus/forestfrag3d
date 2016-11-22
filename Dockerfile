@@ -89,6 +89,15 @@ RUN rm -r /tmp/grasstmploc
 
 RUN mkdir /code
 
+# fix for #2992 (https://trac.osgeo.org/grass/ticket/2992)
+# removes source code at the end
+COPY r3.null.patch /code/
+WORKDIR /usr/local/src/grass
+RUN patch -p0 < /code/r3.null.patch \
+    && cd raster3d/r3.null \
+    && make && make install \
+    && cd ../../.. && rm -r grass
+
 # create a user
 RUN useradd -m -U grass
 
@@ -96,14 +105,6 @@ VOLUME ["/data"]
 
 # add repository files to the image
 ADD . /code
-
-# fix for #2992 (https://trac.osgeo.org/grass/ticket/2992)
-# removes source code at the end
-WORKDIR /usr/local/src/grass
-RUN patch -p0 < /code/r3.null.patch \
-    && cd raster3d/r3.null \
-    && make && make install \
-    && cd ../../.. && rm -r grass
 
 # change the owner so that the user can execute
 RUN chown -R grass:grass /code
