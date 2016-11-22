@@ -88,7 +88,6 @@ RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.forestfrag
 RUN rm -r /tmp/grasstmploc
 
 RUN mkdir /code
-WORKDIR /code
 
 # create a user
 RUN useradd -m -U grass
@@ -105,10 +104,11 @@ RUN patch -p0 < /code/r3.null.patch \
     && cd raster3d/r3.null \
     && make && make install \
     && cd ../../.. && rm -r grass
-WORKDIR /code
 
 # change the owner so that the user can execute
 RUN chown -R grass:grass /code
 
 # switch the user
 USER grass
+
+WORKDIR /data
