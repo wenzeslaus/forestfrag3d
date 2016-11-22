@@ -57,8 +57,9 @@ RUN apt-get update \
     && apt-get clean
 
 # install GRASS GIS
+# using a specific revision, otherwise we can't apply the path safely
 WORKDIR /usr/local/src
-RUN svn checkout https://svn.osgeo.org/grass/grass/trunk grass \
+RUN svn checkout -r 68881 https://svn.osgeo.org/grass/grass/trunk grass \
     && cd grass \
     &&  ./configure \
         --enable-largefile=yes \
@@ -74,8 +75,7 @@ RUN svn checkout https://svn.osgeo.org/grass/grass/trunk grass \
         --with-freetype=yes --with-freetype-includes="/usr/include/freetype2/" \
         --with-sqlite=yes \
         --with-liblas=yes --with-liblas-config=/usr/bin/liblas-config \
-    && make && make install && ldconfig \
-    && cd .. && rm -r grass
+    && make && make install && ldconfig
 
 # enable simple grass command regardless of version number
 RUN ln -s /usr/local/bin/grass* /usr/local/bin/grass
@@ -97,6 +97,15 @@ VOLUME ["/data"]
 
 # add repository files to the image
 ADD . /code
+
+# fix for #2992 (https://trac.osgeo.org/grass/ticket/2992)
+# removes source code at the end
+WORKDIR /usr/local/src/grass
+RUN patch -p0 < /code/r3.null.patch \
+    && cd raster3d/r3.null \
+    && make && make install \
+    && cd ../../.. && rm -r grass
+WORKDIR /code
 
 # change the owner so that the user can execute
 RUN chown -R grass:grass /code

@@ -60,3 +60,16 @@ testing the processing chain.
 The `main_cat_3d.png` file is a manually created using GRASS GIS 3D view
 (NVIZ). Theoretically, same image can be obtained using *m.nviz.image*
 module.
+
+## Dependencies
+
+### GRASS GIS
+
+A custom build of GRASS GIS is compiled from source code obtained
+directly from GRASS GIS Subversion repository. The version used is
+trunk revision number 68881 from July 7, 2016.
+
+There is a bug in the r3.null module which causes a certain 3D tile
+to contain NULL values only (see #2992 in GRASS GIS bug tracker).
+The patch with a workaround is included in the file `r3.null.patch`
+and applied during compilation.
