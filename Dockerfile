@@ -74,12 +74,13 @@ RUN svn checkout https://svn.osgeo.org/grass/grass/trunk grass \
         --with-freetype=yes --with-freetype-includes="/usr/include/freetype2/" \
         --with-sqlite=yes \
         --with-liblas=yes --with-liblas-config=/usr/bin/liblas-config \
-    && make && make install && ldconfig
+    && make && make install && ldconfig \
+    && cd .. && rm -r grass
 
 # enable simple grass command regardless of version number
 RUN ln -s /usr/local/bin/grass* /usr/local/bin/grass
 
-# install additional GRASS GIS modules
+# install additional GRASS GIS modules, each as a separate step
 RUN grass -c EPSG:4326 /tmp/grasstmploc -e
 RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.count.categories
 RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.profile
