@@ -59,7 +59,7 @@ RUN apt-get update \
 # install GRASS GIS
 # using a specific revision, otherwise we can't apply the path safely
 WORKDIR /usr/local/src
-RUN svn checkout -r 68881 https://svn.osgeo.org/grass/grass/trunk grass \
+RUN svn checkout -r 69871 https://svn.osgeo.org/grass/grass/trunk grass \
     && cd grass \
     &&  ./configure \
         --enable-largefile=yes \
