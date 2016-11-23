@@ -1,5 +1,7 @@
 # forestfrag3d
 
+[![Build Status](https://travis-ci.org/wenzeslaus/forestfrag3d.svg?branch=master)](https://travis-ci.org/wenzeslaus/forestfrag3d)
+
 ## Running
 
 After every change of the scripts (or Dockerfile) you need to build the
