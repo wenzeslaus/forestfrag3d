@@ -1,5 +1,16 @@
 #!/bin/bash
 
+if [ -z "$1" ]
+then
+    REGION=study_region
+elif [ $1 = "test" ]
+then
+    REGION=test_region
+else
+    >&2 echo "Invalid parameter: $1"
+    exit 1
+fi
+
 GRASSDATA=/data/grassdata/nc_location/PERMANENT
 
 # create GRASS GIS location
@@ -11,12 +22,13 @@ cd /data
 7zr e -y /code/points.las.7z
 
 mkdir $GRASSDATA/windows
-cp /code/study_region_real $GRASSDATA/windows/study_region
+cp /code/study_region $GRASSDATA/windows/
+cp /code/test_region $GRASSDATA/windows/
 
 grass $GRASSDATA --exec \
     v.in.ascii input=/code/zones.txt output=zones_full format=standard
 
-grass $GRASSDATA --exec g.region region=study_region
+grass $GRASSDATA --exec g.region region=$REGION
 
 grass $GRASSDATA --exec v.in.region output=region
 grass $GRASSDATA --exec \
@@ -34,7 +46,7 @@ grass $GRASSDATA --exec /code/veg_surface.sh
 
 # we changed the region, change it back
 # 2D and 3D resolution same, same in all directions, and coarser
-grass $GRASSDATA --exec g.region region=study_region
+grass $GRASSDATA --exec g.region region=$REGION
 
 grass $GRASSDATA --exec /code/density.sh
 grass $GRASSDATA --exec /code/lidar3d.sh

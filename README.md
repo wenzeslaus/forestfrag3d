@@ -14,6 +14,9 @@ directory on your machine and execute:
 
 The time to execute with the test region is about 5 minutes while the
 run on the full study are is about 20 minutes.
+To run just the test area, add `test` parameter to the main script:
+
+    docker run ... /code/run.sh test
 
 To run just a part of the processing, call the specific script instead
 of the main one. If you change the script you are running, you need to
@@ -32,6 +35,15 @@ environmental variable. Here is a complete example:
             -it forestfrag3d \
             grass /data/grassdata/nc_location/PERMANENT --exec \
                 /code/comparison_images.sh
+
+For testing purposes, you can change computational region to
+the predefined `test_region` or any other region settings:
+
+    docker run --rm \
+        -v /home/.../ffdata:/data \
+        -it forestfrag3d \
+        grass /data/grassdata/nc_location/PERMANENT --exec \
+            g.region region=test_region
 
 ## Files
 
@@ -85,7 +97,7 @@ The header was edited and cleaned up manually.
 The repository include two computational regions for GRASS GIS which can
 be copied into GRASS GIS spatial database and used as *saved regions*.
 The `study_region` file stores the extent of the study area and
-the `study_region_real` files stores a very small extent meant for
+the `test_region` files stores a very small extent meant for
 testing the processing chain.
 
 ### 3D visualization
