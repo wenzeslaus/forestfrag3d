@@ -41,7 +41,6 @@ d.frame -c frame=f_br at=0,$END,$START,100
 d.legend -c raster=${FF} at=20,100,5,15  fontsize=${FONT_SIZE_PT}
 d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
-d.frame -a
 d.mon stop=cairo
 
 d.mon start=cairo output=comparison_ortho_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -58,7 +57,6 @@ d.frame -c frame=f_br at=0,$END,$START,100
 d.legend -c raster=${FF} at=20,100,5,15  fontsize=${FONT_SIZE_PT}
 d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
-d.frame -a
 d.mon stop=cairo
 
 d.mon start=cairo output=ortho_with_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -68,7 +66,6 @@ d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
     label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
     bgcolor=none
-d.frame -a
 d.mon stop=cairo
 
 d.mon start=cairo output=comparison_elevation_2x2.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -82,7 +79,6 @@ d.frame -c frame=f_bl at=0,$END,0,$END
 d.rast map=${SHADE}
 d.frame -c frame=f_br at=0,$END,$START,100
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
-d.frame -a
 d.mon stop=cairo
 
 # compose with image from 3D using ImageMagic
@@ -106,7 +102,6 @@ d.frame -c frame=f_br at=0,$END,0,100
 #d.legend -c raster=${FF} at=20,100,5,15 fontsize=10
 #d.legend -s raster=${DEM} at=10,90,75,85 fontsize=10 range=0,20
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,30 fontsize=${FONT_SIZE_PT}
-d.frame -a
 d.mon stop=cairo
 
 # compose with image from 3D using ImageMagic
