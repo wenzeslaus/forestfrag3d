@@ -26,6 +26,8 @@ DEM="ground"
 SHADE="relief"
 CONTOURS="contours"
 ZONES="zones"
+PROFILE_POINTS="profile_points"
+PROFILE_LINE="profile_line"
 
 IMAGE_3D="main_cat_3d.png"
 
@@ -63,6 +65,15 @@ d.mon start=cairo output=ortho_with_zones.png width=$DESIRED_WIDTH height=$DESIR
 d.erase  # previous image is not cleaned
 d.rast map=${ORTHO}
 d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
+    label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
+d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
+    bgcolor=none
+d.mon stop=cairo
+
+d.mon start=cairo output=ortho_with_profiles.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.erase  # previous image is not cleaned
+d.rast map=${ORTHO}
+d.vect map=${PROFILE_LINE} display=shape,dir color="#00AED1" fill_color=none width=6 \
     label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
     bgcolor=none
