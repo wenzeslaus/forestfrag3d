@@ -31,7 +31,7 @@ environmental variable. Here is a complete example:
         && docker run --rm \
             -v /home/.../ffdata:/data \
             -e GRASS_OVERWRITE=1 \
-            -w /code/images \
+            -w /data/images \
             -it forestfrag3d \
             grass /data/grassdata/nc_location/PERMANENT --exec \
                 /code/comparison_images.sh
