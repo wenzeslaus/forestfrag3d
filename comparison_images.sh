@@ -4,7 +4,7 @@ export GRASS_OVERWRITE=1
 export GRASS_FONT=sans
 eval `g.region -g`
 
-DESIRED_WIDTH=500
+DESIRED_WIDTH=1000
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 START=50.2
@@ -18,6 +18,7 @@ START_HEIGHT_3D_PX=`python -c "print round(($START + $HEIGHT_OFFSET_3D) / 100. *
 
 BAR_LENGTH=200
 FONT_SIZE_PT=15
+LABEL_SIZE_PX=15
 
 FF="ff_series_15_max_raster"
 ORTHO="ortho"
@@ -25,6 +26,7 @@ DENSITY="n_3_4_5_3_f"
 DEM="ground"
 SHADE="relief"
 CONTOURS="contours"
+ZONES="zones"
 
 IMAGE_3D="main_cat_3d.png"
 
@@ -40,6 +42,33 @@ d.frame -c frame=f_br at=0,$END,$START,100
 d.legend -c raster=${FF} at=20,100,5,15  fontsize=${FONT_SIZE_PT}
 d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
+d.frame -a
+d.mon stop=cairo
+
+d.mon start=cairo output=comparison_ortho_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.erase  # previous image is not cleaned
+d.frame -c frame=f_tl at=$START,100,0,$END
+d.rast map=${ORTHO}
+d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
+    label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
+d.frame -c frame=f_tr at=$START,100,$START,100
+d.rast map=${DENSITY}
+d.frame -c frame=f_bl at=0,$END,0,$END
+d.rast map=${FF}
+d.frame -c frame=f_br at=0,$END,$START,100
+d.legend -c raster=${FF} at=20,100,5,15  fontsize=${FONT_SIZE_PT}
+d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
+d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
+d.frame -a
+d.mon stop=cairo
+
+d.mon start=cairo output=ortho_with_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.erase  # previous image is not cleaned
+d.rast map=${ORTHO}
+d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
+    label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
+d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
+    bgcolor=none
 d.frame -a
 d.mon stop=cairo
 
