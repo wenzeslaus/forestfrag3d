@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export GRASS_OVERWRITE=1
-
 #v.db.droptable map=classes layer=2 -f
 #v.db.addtable map=classes layer=2
 

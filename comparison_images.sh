@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export GRASS_OVERWRITE=1
 export GRASS_FONT=sans
 eval `g.region -g`
 

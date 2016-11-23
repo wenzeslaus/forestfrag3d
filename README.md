@@ -20,16 +20,18 @@ of the main one. If you change the script you are running, you need to
 build the Docker image (this should take around 2 seconds) and than
 run the script (use `&&` for executing both commands in one line).
 For some scripts like the ones creating images, you many need to change
-the working directory with `-w`. Here is a complete example:
+the working directory with `-w`. Unless you delete the output files
+ahead, you will need to set the global overwrite flag using
+environmental variable. Here is a complete example:
 
     docker build -t forestfrag3d . \
         && docker run --rm \
             -v /home/.../ffdata:/data \
+            -e GRASS_OVERWRITE=1 \
             -w /code/images \
             -it forestfrag3d \
             grass /data/grassdata/nc_location/PERMANENT --exec \
                 /code/comparison_images.sh
-
 
 ## Files
 

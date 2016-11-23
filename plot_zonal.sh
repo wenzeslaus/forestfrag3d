@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export GRASS_OVERWRITE=1
 export GRASS_FONT=sans
 
 seq 1 1 46 > x.txt

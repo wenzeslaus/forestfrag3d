@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export GRASS_OVERWRITE=1
-
 r3.count.categories input=ff output=ff_count slices=ff_slice
 r3.count.categories input=ff output=ff_surface_count slices=ff_slice surface=max_3_4_5_in_cells -s
 r3.count.categories input=ff output=ff_relative_count slices=ff_slice surface=max_3_4_5_in_cells -d -s
