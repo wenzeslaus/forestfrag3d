@@ -18,17 +18,8 @@ DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 BAR_LENGTH=200
 
-# TODO: fix ff and slicing, so we have a color table here
-r.colors map=`g.list raster -e pattern="^ff_slice_[0-9]+" sep=comma` rules=- <<EOF
-#0 245:244:68
-0 173:216:230
-1 35:60:37
-2 172:92:80
-3 192:126:73
-4 157:182:90
-5 107:214:72
-6 195:233:82
-EOF
+# TODO: fix ff and slicing, so we already have a color table here
+r.colors map=`g.list raster -e pattern="^ff_slice_[0-9]+" sep=comma` raster_3d=ff
 
 
 START=50.2
