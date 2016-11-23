@@ -10,11 +10,11 @@ RUN apt-get update \
     && apt-get install -y --install-recommends \
         autoconf2.13 \
         autotools-dev \
-        make \
+        bison \
+        flex \
         g++ \
         gettext \
-        flex \
-        bison \
+        libblas-dev \
         libbz2-dev \
         libcairo2-dev \
         libfftw3-dev \
@@ -23,28 +23,27 @@ RUN apt-get update \
         libgeos-dev \
         libglu1-mesa-dev \
         libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
+        liblapack-dev \
+        liblas-c-dev \
         libncurses5-dev \
+        libnetcdf-dev \
+        libpng-dev \
         libpq-dev \
         libproj-dev \
-        proj-bin \
         libreadline-dev \
         libsqlite3-dev \
+        libtiff-dev \
         libxmu-dev \
+        make \
+        netcdf-bin \
+        proj-bin \
         python \
         python-dev \
         python-numpy \
-        python-ply \
         python-pil \
-        libnetcdf-dev \
-        netcdf-bin \
-        libblas-dev \
-        liblapack-dev \
+        python-ply \
         unixodbc-dev \
         zlib1g-dev \
-        liblas-c-dev \
-        subversion \
     && apt-get autoremove \
     && apt-get clean
 
@@ -53,6 +52,7 @@ RUN apt-get update \
     && apt-get install -y --install-recommends \
         imagemagick \
         p7zip \
+        subversion \
     && apt-get autoremove \
     && apt-get clean
 
