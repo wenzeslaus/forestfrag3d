@@ -2,7 +2,6 @@
 
 export GRASS_OVERWRITE=1
 export GRASS_FONT=sans
-#export WIND_OVERRIDE=high_school
 
 seq 1 1 46 > x.txt
 seq 0 1 5 > x_count.txt

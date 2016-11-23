@@ -2,9 +2,6 @@
 
 POINTS=/data/points.las
 
-# fine resolution for the surfaces
-g.region res=1 -a
-
 r.in.lidar input=$POINTS method=max output=max_3_4_5 base_raster=ground -d class_f=3,4,5
 r.in.lidar input=$POINTS method=n output=n_3_4_5 class_f=3,4,5
 r.to.vect input=max_3_4_5 output=max_3_4_5 type=point -zbt

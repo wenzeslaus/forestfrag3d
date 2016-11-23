@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-#export WIND_OVERRIDE=high_school
 export GRASS_OVERWRITE=1
 
 #v.db.droptable map=classes layer=2 -f

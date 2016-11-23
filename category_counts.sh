@@ -2,8 +2,6 @@
 
 export GRASS_OVERWRITE=1
 
-g.region res=3 res3=3 -a
-
 r3.count.categories input=ff output=ff_count slices=ff_slice
 r3.count.categories input=ff output=ff_surface_count slices=ff_slice surface=max_3_4_5_in_cells -s
 r3.count.categories input=ff output=ff_relative_count slices=ff_slice surface=max_3_4_5_in_cells -d -s

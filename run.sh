@@ -11,7 +11,7 @@ cd /data
 7zr e -y /code/points.las.7z
 
 mkdir $GRASSDATA/windows
-cp /code/study_region $GRASSDATA/windows/study_region
+cp /code/study_region_real $GRASSDATA/windows/study_region
 
 grass $GRASSDATA --exec \
     v.in.ascii input=/code/zones.txt output=zones_full format=standard
@@ -25,9 +25,19 @@ grass $GRASSDATA --exec \
 grass $GRASSDATA --exec \
     r.unpack input=/code/ortho.grpack output=ortho
 
-grass $GRASSDATA --exec /code/process_lidar.sh
+# fine resolution for the surfaces
+grass $GRASSDATA --exec g.region res=1 -a
+
+grass $GRASSDATA --exec /code/ground.sh
 grass $GRASSDATA --exec /code/contours.sh
 grass $GRASSDATA --exec /code/veg_surface.sh
+
+# we changed the region, change it back
+# 2D and 3D resolution same, same in all directions, and coarser
+grass $GRASSDATA --exec g.region region=study_region
+
+grass $GRASSDATA --exec /code/density.sh
+grass $GRASSDATA --exec /code/lidar3d.sh
 grass $GRASSDATA --exec /code/ff.py
 grass $GRASSDATA --exec /code/category_counts.sh
 grass $GRASSDATA --exec /code/slice.sh
