@@ -4,21 +4,56 @@
 
 ## Running
 
-After every change of the scripts (or Dockerfile) you need to build the
-Docker image again using:
+### Get the repository content
+
+Either download ZIP from the GitHub repository website or use Git:
+
+    git clone https://github.com/wenzeslaus/forestfrag3d.git
+
+### Build and run
+
+In the command line, enter into the repository directory (there should
+be a Dockerfile), for example:
+
+    cd /home/.../forestfrag3d
+
+Build the content using Docker:
 
     docker build -t forestfrag3d .
 
-To run the processing, set the volume `/data` to an empty existing
-directory on your machine and execute:
+The time to build it for the first time is about 12 minutes.
+You will need to build it again after every change of the scripts
+(or of the Dockerfile) but these builds will usually take just few
+seconds depending on the changes you did.
+
+The outputs will be stored in a directory, create an empty directory
+on your machine, for example:
+
+    mkdir /home/.../ffdata
+
+To run the processing, set the volume `/data` to the empty you just
+created and execute:
 
     docker run --rm -v /home/.../ffdata:/data -it forestfrag3d /code/run.sh
 
-The time to execute with the test region is about 5 minutes while the
-run on the full study are is about 20 minutes.
+The time run on the full study area is about 20 minutes. For testing
+purposes, there is a small area which takes about 5 minutes to compute.
+
 To run just the test area, add `test` parameter to the main script:
 
     docker run ... /code/run.sh test
+
+### Build directly from the remote repository
+
+Build based on the content of the Git repository:
+
+    docker build -t forestfrag3d https://github.com/wenzeslaus/forestfrag3d.git
+
+Start the processing (you need an existing empty directory):
+
+    docker run --rm -v /home/.../ffdata:/data -it forestfrag3d /code/run.sh
+
+### Run part of the processing
 
 To run just a part of the processing, call the specific script instead
 of the main one. If you change the script you are running, you need to
@@ -46,6 +81,17 @@ the predefined `test_region` or any other region settings:
         -it forestfrag3d \
         grass /data/grassdata/nc_location/PERMANENT --exec \
             g.region region=test_region
+
+Then you can run the analysis. Alternatively, you can use environmental
+variable to change the region just for the specific process:
+
+    docker run --rm \
+        -v /home/.../ffdata:/data \
+        -e GRASS_OVERWRITE=1 \
+        -e WIND_OVERRIDE=test_region \
+        -it forestfrag3d \
+        grass /data/grassdata/nc_location/PERMANENT --exec \
+            /code/ground.sh
 
 ## Files
 
