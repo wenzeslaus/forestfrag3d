@@ -1,5 +1,36 @@
 # forestfrag3d
 
+## Running
+
+After every change of the scripts (or Dockerfile) you need to build the
+Docker image again using:
+
+    docker build -t forestfrag3d .
+
+To run the processing, set the volume `/data` to an empty existing
+directory on your machine and execute:
+
+    docker run --rm -v /home/.../ffdata:/data -it forestfrag3d /code/run.sh
+
+The time to execute with the test region is about 5 minutes while the
+run on the full study are is about 20 minutes.
+
+To run just a part of the processing, call the specific script instead
+of the main one. If you change the script you are running, you need to
+build the Docker image (this should take around 2 seconds) and than
+run the script (use `&&` for executing both commands in one line).
+For some scripts like the ones creating images, you many need to change
+the working directory with `-w`. Here is a complete example:
+
+    docker build -t forestfrag3d . \
+        && docker run --rm \
+            -v /home/.../ffdata:/data \
+            -w /code/images \
+            -it forestfrag3d \
+            grass /data/grassdata/nc_location/PERMANENT --exec \
+                /code/comparison_images.sh
+
+
 ## Files
 
 ### Point cloud
