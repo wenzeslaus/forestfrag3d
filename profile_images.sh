@@ -14,18 +14,8 @@ eval `g.region -g`
 DESIRED_WIDTH=1000
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
-START=50.2
-END=49.8
-
-START_WIDTH_PX=`python -c "print round($START / 100. * float($DESIRED_WIDTH))"`
-END_WIDTH_PX=`python -c "print round($END / 100. * float($DESIRED_WIDTH))"`
-
-HEIGHT_OFFSET_3D=10
-START_HEIGHT_3D_PX=`python -c "print round(($START + $HEIGHT_OFFSET_3D) / 100. * float($DESIRED_HEIGHT))"`
-
 BAR_LENGTH=50
-FONT_SIZE_PT=19
-LABEL_SIZE_PX=15
+FONT_SIZE_PT=25
 
 d.mon start=cairo output=structure_profile.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
