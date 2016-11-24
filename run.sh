@@ -69,5 +69,6 @@ grass $GRASSDATA --exec /code/plot_zonal.sh
 grass $GRASSDATA --exec /code/ffiness_images.sh
 grass $GRASSDATA --exec /code/comparison_images.sh
 grass $GRASSDATA --exec /code/profile_images.sh
+grass $GRASSDATA --exec /code/count_cats_figure.sh
 
 #grass $GRASSDATA --exec g.list rast,rast3,vect
