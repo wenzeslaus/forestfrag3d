@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GRASS_FONT=sans
+export GRASS_FONT="DejaVu Sans:Book"
 
 seq 1 1 46 > x.txt
 seq 0 1 5 > x_count.txt

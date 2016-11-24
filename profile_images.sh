@@ -8,7 +8,7 @@ export WIND_OVERRIDE
 # set region to profiles
 g.region raster=n_profile
 
-export GRASS_FONT=sans
+export GRASS_FONT="DejaVu Sans:Book"
 eval `g.region -g`
 
 DESIRED_WIDTH=1000

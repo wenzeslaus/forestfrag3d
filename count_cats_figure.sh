@@ -30,7 +30,7 @@ v.mkgrid map=count_categories_explanation_grid position=region
 # set region to the raster and one cell bellow
 g.region s=s-1
 
-export GRASS_FONT=sans
+export GRASS_FONT="DejaVu Sans:Book"
 eval `g.region -g`
 
 DESIRED_WIDTH=300

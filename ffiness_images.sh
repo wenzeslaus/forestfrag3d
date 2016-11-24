@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GRASS_FONT=sans
+export GRASS_FONT="DejaVu Sans:Book"
 
 eval `g.region -g`
 
