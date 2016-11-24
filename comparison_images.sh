@@ -18,6 +18,7 @@ START_HEIGHT_3D_PX=`python -c "print round(($START + $HEIGHT_OFFSET_3D) / 100. *
 BAR_LENGTH=200
 FONT_SIZE_PT=15
 LABEL_SIZE_PX=15
+LINE_WIDTH=4
 
 FF="ff_series_15_max_raster"
 ORTHO="ortho"
@@ -31,7 +32,7 @@ PROFILE_LINE="profile_line"
 
 IMAGE_3D="main_cat_3d.png"
 
-d.mon start=cairo output=comparison_ortho.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.mon start=cairo output=comparison_ortho_simple.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=${ORTHO}
@@ -45,11 +46,12 @@ d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,20 fontsize=${FONT_SIZE_PT}
 d.mon stop=cairo
 
-d.mon start=cairo output=comparison_ortho_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.mon start=cairo output=comparison_ortho.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=${ORTHO}
-d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
+d.vect map=${PROFILE_LINE} display=shape,dir color="#00AED1" fill_color=none width=${LINE_WIDTH}
+d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=${LINE_WIDTH} \
     label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
 d.frame -c frame=f_tr at=$START,100,$START,100
 d.rast map=${DENSITY}
@@ -64,7 +66,7 @@ d.mon stop=cairo
 d.mon start=cairo output=ortho_with_zones.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.rast map=${ORTHO}
-d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=6 \
+d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=${LINE_WIDTH} \
     label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
     bgcolor=none
@@ -73,8 +75,7 @@ d.mon stop=cairo
 d.mon start=cairo output=ortho_with_profiles.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.rast map=${ORTHO}
-d.vect map=${PROFILE_LINE} display=shape,dir color="#00AED1" fill_color=none width=6 \
-    label_color=black label_bgcolor="#CBCBCB" label_size=${LABEL_SIZE_PX} xref=left yref=top
+d.vect map=${PROFILE_LINE} display=shape,dir color="#00AED1" fill_color=none width=${LINE_WIDTH}
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=40,100 fontsize=${FONT_SIZE_PT} \
     bgcolor=none
 d.mon stop=cairo
