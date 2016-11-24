@@ -19,6 +19,7 @@ BAR_LENGTH=200
 FONT_SIZE_PT=15
 LABEL_SIZE_PX=15
 LINE_WIDTH=4
+BRIGHTEN_SHADE=40
 
 FF="ff_series_15_max_raster"
 ORTHO="ortho"
@@ -56,7 +57,8 @@ d.vect map=${ZONES} display=shape,cat color=red fill_color=none width=${LINE_WID
 d.frame -c frame=f_tr at=$START,100,$START,100
 d.rast map=${DENSITY}
 d.frame -c frame=f_bl at=0,$END,0,$END
-d.rast map=${FF}
+d.shade shade=${SHADE} color=${FF} brighten=${BRIGHTEN_SHADE}
+d.vect map=contours color=white width=1
 d.frame -c frame=f_br at=0,$END,$START,100
 d.legend -c raster=${FF} at=20,100,5,15  fontsize=${FONT_SIZE_PT}
 d.legend -s raster=${DENSITY} at=10,90,75,85 fontsize=${FONT_SIZE_PT} range=0,20
@@ -86,7 +88,7 @@ d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=${DEM}
 d.vect map=${CONTOURS} color="#1A1A1A" width=1
 d.frame -c frame=f_tr at=$START,100,$START,100
-d.shade shade=${SHADE} color=${FF}
+d.shade shade=${SHADE} color=${FF} brighten=${BRIGHTEN_SHADE}
 d.frame -c frame=f_bl at=0,$END,0,$END
 d.rast map=${SHADE}
 d.frame -c frame=f_br at=0,$END,$START,100
@@ -107,7 +109,7 @@ DESIRED_WIDTH=`python -c "print round($DESIRED_WIDTH / 2.)"`
 d.mon start=cairo output=comparison_elevation.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tr at=$START,100,0,100
-d.shade shade=${SHADE} color=${FF}
+d.shade shade=${SHADE} color=${FF} brighten=${BRIGHTEN_SHADE}
 d.vect map=contours color=white width=1
 d.frame -c frame=f_br at=0,$END,0,100
 # d.erase "#FFAAXX" # TODO: 3D image is one pixel smaller
