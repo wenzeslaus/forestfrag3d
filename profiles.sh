@@ -3,6 +3,7 @@
 r3.colors map=n rules=- <<EOF
 0 220:246:255
 1 255:255:0
+100% 255:255:0
 EOF
 
 r3.colors map=reconstructed_01 rules=- <<EOF
