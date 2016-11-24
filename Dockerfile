@@ -76,15 +76,27 @@ RUN svn checkout -r 69871 https://svn.osgeo.org/grass/grass/trunk grass \
         --with-sqlite=yes \
         --with-liblas=yes --with-liblas-config=/usr/bin/liblas-config \
     && make && make install && ldconfig
+# cannot delete src now, patch will be needed
 
 # enable simple grass command regardless of version number
 RUN ln -s /usr/local/bin/grass* /usr/local/bin/grass
 
 # install additional GRASS GIS modules, each as a separate step
 RUN grass -c EPSG:4326 /tmp/grasstmploc -e
-RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.count.categories
-RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.profile
-RUN grass /tmp/grasstmploc/PERMANENT --exec g.extension -s r3.forestfrag
+
+# no ARG in Docker 1.6.2, only ENV
+ENV addons=https://svn.osgeo.org/grass/grass-addons/grass7
+
+WORKDIR /usr/local/src
+RUN svn checkout -r 69857 $addons/raster3d/r3.count.categories r3.count.categories \
+    && grass /tmp/grasstmploc/PERMANENT --exec \
+        g.extension -s r3.count.categories url=r3.count.categories
+RUN svn checkout -r 69888 $addons/raster3d/r3.forestfrag r3.forestfrag \
+    && grass /tmp/grasstmploc/PERMANENT --exec \
+        g.extension -s r3.forestfrag url=r3.forestfrag
+RUN svn checkout -r 69887 $addons/raster3d/r3.profile r3.profile \
+    && grass /tmp/grasstmploc/PERMANENT --exec \
+        g.extension -s r3.profile url=r3.profile
 RUN rm -r /tmp/grasstmploc
 
 RUN mkdir /code
