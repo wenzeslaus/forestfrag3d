@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Vaclav Petras wenzeslaus gmail com
+MAINTAINER Vaclav Petras <wenzeslaus@gmail.com>
 
 # system environment
 ENV DEBIAN_FRONTEND noninteractive
