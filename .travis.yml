@@ -11,3 +11,10 @@ install:
 
 script:
   - docker run --rm -v $(pwd)/ffdata:/data -it forestfrag3d /code/run.sh test
+
+notifications:
+  email:
+    recipients:
+      - wenzeslaus@gmail.com
+    on_success: change
+    on_failure: always
