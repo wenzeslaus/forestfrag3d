@@ -6,8 +6,8 @@ eval `g.region -g`
 DESIRED_WIDTH=1000
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
-START=50.2
-END=49.8
+START=50.3
+END=49.7
 
 START_WIDTH_PX=`python -c "print round($START / 100. * float($DESIRED_WIDTH))"`
 END_WIDTH_PX=`python -c "print round($END / 100. * float($DESIRED_WIDTH))"`

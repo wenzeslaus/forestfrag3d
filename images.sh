@@ -15,15 +15,14 @@ eval `g.region -g`
 DESIRED_WIDTH=500
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
+START=50.3
+END=49.7
+
 BAR_LENGTH=200
 BAR_AT=0,16
 
 # TODO: fix ff and slicing, so we already have a color table here
 r.colors map=`g.list raster -e pattern="^ff_slice_[0-9]+" sep=comma` raster_3d=ff
-
-
-START=50.2
-END=49.8
 
 d.mon start=cairo output=hslice.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
@@ -53,8 +52,6 @@ r.colors map=ff_count_1,ff_count_3,ff_count_4,ff_count_5 rules=- <<EOF
 EOF
 
 d.mon start=cairo output=count.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
-START=50.2
-END=49.8
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 #d.rast map=ff_count_interior
@@ -78,10 +75,8 @@ r.colors map=`g.list rast pat="${MAP}_*" sep=,` rules=- <<EOF
 100% 244:243:68
 EOF
 
-d.mon start=cairo output=surface_count.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
-START=50.2
-END=49.8
 MAP=ff_surface_count
+d.mon start=cairo output=surface_count.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=${MAP}_5
@@ -96,10 +91,8 @@ d.barscale units=meters style=solid length=${BAR_LENGTH} at=${BAR_AT}
 d.legend -s -b raster=${MAP}_5 border_color=none at=4,95,79,89 #label_values=0,.10,.20,.30 range=0,.30 fontsize=10
 d.mon stop=cairo
 
-d.mon start=cairo output=relative_count.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
-START=50.2
-END=49.8
 MAP=ff_relative_count
+d.mon start=cairo output=relative_count.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=${MAP}_5
@@ -115,8 +108,6 @@ d.legend -s -b raster=${MAP}_5 border_color=none at=4,95,77,87 label_values=0,0.
 d.mon stop=cairo
 
 d.mon start=cairo output=main_category.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
-START=50.2
-END=49.8
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=ff_series_05_max_raster

@@ -9,8 +9,6 @@ eval `g.region -g`
 
 DESIRED_WIDTH=500
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
-START=50.2
-END=49.8
 
 # cubehelix
 C1=26:24:52
