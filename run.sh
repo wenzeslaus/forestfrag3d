@@ -25,14 +25,9 @@ mkdir $GRASSDATA/windows
 cp /code/study_region $GRASSDATA/windows/
 cp /code/test_region $GRASSDATA/windows/
 
-grass $GRASSDATA --exec \
-    v.in.ascii input=/code/zones.txt output=zones_full format=standard
-
 grass $GRASSDATA --exec g.region region=$REGION
 
-grass $GRASSDATA --exec v.in.region output=region
-grass $GRASSDATA --exec \
-    v.overlay ainput=zones_full binput=region operator=and output=zones
+grass $GRASSDATA --exec /code/import_zones.sh /code/zones.txt
 
 grass $GRASSDATA --exec \
     r.unpack input=/code/ortho.grpack output=ortho
