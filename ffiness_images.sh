@@ -58,6 +58,8 @@ cat > legend.txt <<EOF
 10|legend/line|5|ps|$C10|$C10|$LINE_WIDTH|line|1
 EOF
 
+CATS=`v.category zones -g op=print | sort | uniq`
+
 seq 1 1 46 > x.txt
 
 COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
@@ -65,7 +67,7 @@ COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
 for F in 0 1 2 3 4 5
 do
     MAP=ff_${F}_slice
-    for CAT in `v.category zones -g op=print | sort | uniq`
+    for CAT in ${CATS}
     do
         v.db.select zones sep="\n" \
             col=`g.list rast p="${MAP}_*" sep=_average,`_average \

@@ -72,10 +72,12 @@ EOF
 
 COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
 
+CATS=`v.category zones -g op=print | sort | uniq`
+
 MAP="ff_slice"
 OPTIONS="y_range=0,5 width=$LINE_WIDTH"
 
-for CAT in `v.category zones -g op=print | sort | uniq`
+for CAT in ${CATS}
 do
     v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = ${CAT}" > file_${MAP}_${CAT}.txt
     d.mon start=cairo output=zonal_plot_${MAP}_${CAT}.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -97,7 +99,7 @@ d.mon stop=cairo
 MAP="ff_count"
 OPTIONS="y_range=0,40 width=$LINE_WIDTH"
 
-for CAT in `v.category zones -g op=print | sort | uniq`
+for CAT in ${CATS}
 do
     v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = $CAT" > file_${MAP}_$CAT.txt
     d.mon start=cairo output=zonal_plot_${MAP}_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -118,7 +120,7 @@ d.mon stop=cairo
 MAP="ff_surface_count"
 OPTIONS="y_range=0,20 width=$LINE_WIDTH"
 
-for CAT in `v.category zones -g op=print | sort | uniq`
+for CAT in ${CATS}
 do
     v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = $CAT" > file_${MAP}_$CAT.txt
     d.mon start=cairo output=zonal_plot_${MAP}_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -139,7 +141,7 @@ d.mon stop=cairo
 MAP="ff_relative_count"
 OPTIONS="y_range=0,0.65 y_tics=$YTICS width=$LINE_WIDTH"
 
-for CAT in `v.category zones -g op=print | sort | uniq`
+for CAT in ${CATS}
 do
     v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = $CAT" > file_${MAP}_$CAT.txt
     d.mon start=cairo output=zonal_plot_${MAP}_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -161,7 +163,7 @@ OPTIONS="y_range=0,0.5 y_tics=$YTICS width=$LINE_WIDTH"
 
 for MAP in "n_slice" "mean_slice"
 do
-    for CAT in `v.category zones -g op=print | sort | uniq`
+    for CAT in ${CATS}
     do
         # TODO: are we right when replacing NULL by 0? (pff maps)
         v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = ${CAT}" null_value=0 > file_${MAP}_${CAT}.txt
@@ -176,7 +178,7 @@ OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH"
 
 for MAP in "pf_slice" "pff_slice"
 do
-    for CAT in `v.category zones -g op=print | sort | uniq`
+    for CAT in ${CATS}
     do
         # TODO: are we right when replacing NULL by 0? (pff maps)
         v.db.select zones sep="\n" col=`g.list rast p="${MAP}_*" sep=_average,`_average -c where="cat = ${CAT}" null_value=0 > file_${MAP}_${CAT}.txt
@@ -189,7 +191,7 @@ done
 
 OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH"
 
-for CAT in `v.category zones -g op=print | sort | uniq`
+for CAT in ${CATS}
 do
     d.mon start=cairo output=zonal_plot_n_mean_pf_pff_zone_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
     d.erase  # previous image is not cleaned
