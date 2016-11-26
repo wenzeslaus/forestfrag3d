@@ -21,6 +21,8 @@ END=49.7
 BAR_LENGTH=200
 BAR_AT=5,10
 FONT_SIZE=20
+FONT_SIZE_TEXT=20 # in px with -s
+TEXT_AT=98,94
 
 # TODO: fix ff and slicing, so we already have a color table here
 r.colors map=`g.list raster -e pattern="^ff_slice_[0-9]+" sep=comma` raster_3d=ff
@@ -29,12 +31,24 @@ d.mon start=cairo output=hslice.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
 d.rast map=ff_slice_00005
+d.text at=${TEXT_AT} align=lr color=black bgcolor=220:246:255 \
+    text="`python -c 'print(int(round(5 * 3 / 3.28084)))'` m" \
+    -s size=${FONT_SIZE_TEXT}
 d.frame -c frame=f_tr at=$START,100,$START,100
 d.rast map=ff_slice_00015
+d.text at=${TEXT_AT} align=lr color=black bgcolor=220:246:255 \
+    text="`python -c 'print(int(round(15 * 3 / 3.28084)))'` m" \
+    -s size=${FONT_SIZE_TEXT}
 d.frame -c frame=f_bl at=0,$END,0,$END
 d.rast map=ff_slice_00025
+d.text at=${TEXT_AT} align=lr color=black bgcolor=220:246:255 \
+    text="`python -c 'print(int(round(25 * 3 / 3.28084)))'` m" \
+    -s size=${FONT_SIZE_TEXT}
 d.frame -c frame=f_br at=0,$END,$START,100
 d.rast map=ff_slice_00035
+d.text at=${TEXT_AT} align=lr color=black bgcolor=220:246:255 \
+    text="`python -c 'print(int(round(35 * 3 / 3.28084)))'` m" \
+    -s size=${FONT_SIZE_TEXT}
 d.barscale units=meters style=solid bgcolor=none length=${BAR_LENGTH} \
     at=35,8 fontsize=${FONT_SIZE}
 d.mon stop=cairo
