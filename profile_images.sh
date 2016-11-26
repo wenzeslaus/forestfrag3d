@@ -21,8 +21,9 @@ d.mon start=cairo output=structure_profile.png width=$DESIRED_WIDTH height=$DESI
 d.erase  # previous image is not cleaned
 d.rast map=reconstructed_01_profile
 d.rast map=n_profile values=1-inf
-d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,100 fontsize=${FONT_SIZE_PT} \
-    bgcolor=none
+# only one needs a scale bar when together
+#d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,100 fontsize=${FONT_SIZE_PT} \
+#    bgcolor=none
 d.mon stop=cairo
 
 d.mon start=cairo output=ff_profile.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
@@ -31,6 +32,11 @@ d.rast map=ff_profile
 d.barscale units=meters style=solid length=${BAR_LENGTH} at=0,100 fontsize=${FONT_SIZE_PT} \
     bgcolor=none
 d.mon stop=cairo
+
+# combine images
+GEOMETRY="+12+4"
+montage structure_profile.png ff_profile.png \
+    -geometry $GEOMETRY -tile x2 profiles.png
 
 # remove temporary region
 g.remove -f type=region name=$WIND_OVERRIDE
