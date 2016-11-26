@@ -45,11 +45,10 @@ ZONE_COLORS=${ZONE_COLORS%?}
 # order according to Paul Tol
 COLORS4="y_color=$C1,$C5,$C3,$C4"
 
-cat > legend_n_m_pff.txt <<EOF
+cat > legend_n_pf_pff.txt <<EOF
 n|legend/line|5|ps|$C1|$C1|$LINE_WIDTH|line|1
-mean|legend/line|5|ps|$C5|$C5|$LINE_WIDTH|line|1
-pf|legend/line|5|ps|$C3|$C3|$LINE_WIDTH|line|1
-pff|legend/line|5|ps|$C4|$C4|$LINE_WIDTH|line|1
+pf|legend/line|5|ps|$C5|$C5|$LINE_WIDTH|line|1
+pff|legend/line|5|ps|$C3|$C3|$LINE_WIDTH|line|1
 EOF
 
 COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
@@ -173,9 +172,9 @@ OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH"
 
 for CAT in ${CATS}
 do
-    d.mon start=cairo output=zonal_plot_n_mean_pf_pff_zone_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+    d.mon start=cairo output=zonal_plot_n_pf_pff_zone_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
     d.erase  # previous image is not cleaned
-    d.linegraph x_file=x.txt y_file=file_n_slice_$CAT.txt,file_mean_slice_$CAT.txt,file_pf_slice_$CAT.txt,file_pff_slice_$CAT.txt $OPTIONS $COLORS4
-    d.legend.vect at=85,98 input=legend_n_m_pff.txt
+    d.linegraph x_file=x.txt y_file=file_n_slice_$CAT.txt,file_pf_slice_$CAT.txt,file_pff_slice_$CAT.txt $OPTIONS $COLORS4
+    d.legend.vect at=85,98 input=legend_n_pf_pff.txt
     d.mon stop=cairo
 done
