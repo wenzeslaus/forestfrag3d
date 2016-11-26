@@ -10,17 +10,20 @@ eval `g.region -g`
 DESIRED_WIDTH=500
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
-# Palettable CB Paired_10 (not printable, not blind)
-C1=#A6CEE3
-C2=#1F78B4
-C3=#B2DF8A
-C4=#33A02C
-C5=#FB9A99
-C6=#E31A1C
-C7=#FDBF6F
-C8=#FF7F00
-C9=#CAB2D6
-C10=#6A3D9A
+# Paul Tol's Alternative Scheme for Qualitative Data
+# main colors
+C1=#4477AA
+C2=#66CCEE
+C3=#228833
+C4=#CCBB44
+C5=#EE6677
+C6=#AA3377
+# gray from the middle (also black suggested)
+C7=#BBBBBB
+# most different colors from the main palette
+C8=#332288
+C9=#44AA99
+C10=#999933
 
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0"
@@ -39,13 +42,14 @@ do
 done
 ZONE_COLORS=${ZONE_COLORS%?}
 
-COLORS4="y_color=$C2,$C4,$C6,$C8"
+# order according to Paul Tol
+COLORS4="y_color=$C1,$C5,$C3,$C4"
 
 cat > legend_n_m_pff.txt <<EOF
-n|legend/line|5|ps|$C2|$C2|$LINE_WIDTH|line|1
-mean|legend/line|5|ps|$C4|$C4|$LINE_WIDTH|line|1
-pf|legend/line|5|ps|$C6|$C6|$LINE_WIDTH|line|1
-pff|legend/line|5|ps|$C8|$C8|$LINE_WIDTH|line|1
+n|legend/line|5|ps|$C1|$C1|$LINE_WIDTH|line|1
+mean|legend/line|5|ps|$C5|$C5|$LINE_WIDTH|line|1
+pf|legend/line|5|ps|$C3|$C3|$LINE_WIDTH|line|1
+pff|legend/line|5|ps|$C4|$C4|$LINE_WIDTH|line|1
 EOF
 
 COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
