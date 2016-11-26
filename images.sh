@@ -120,3 +120,64 @@ d.legend -b -c raster=ff_series_05_max_raster border_color=none at=10,100,65,75 
 d.frame -c frame=f_br at=0,$END,$START,100
 d.rast map=ff_series_15_max_raster_neighbors
 d.mon stop=cairo
+
+# 2x3 (2x4) image
+
+DESIRED_WIDTH=600
+DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
+
+FONTSIZE=20
+BAR_LENGTH=200
+BAR_AT=0,5
+LEGEND_AT=10,85,2,12
+
+# maps
+for CLASS in 3 4 5
+do
+    MAP=ff_count_${CLASS}
+    d.mon start=cairo output=${MAP}.png \
+        width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+    d.erase  # previous image is not cleaned
+    d.rast map=${MAP}
+    d.mon stop=cairo
+
+    MAP=ff_relative_count_${CLASS}
+    d.mon start=cairo output=${MAP}.png \
+        width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+    d.erase  # previous image is not cleaned
+    d.rast map=${MAP}
+    d.mon stop=cairo
+done
+
+# surface legend
+d.mon start=cairo output=count_legend.png \
+        width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.erase  # previous image is not cleaned
+#d.barscale units=meters style=solid length=${BAR_LENGTH} \
+#    at=${BAR_AT} fontsize=${FONTSIZE}
+# flipping the integer legend
+d.legend -s -b -f raster=ff_count_5 border_color=none at=${LEGEND_AT} \
+    label_values=0,5,10,15,20 fontsize=${FONTSIZE} \
+    title="Absolute count"
+d.mon stop=cairo
+
+# relative surface legend
+d.mon start=cairo output=relative_count_legend.png \
+        width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.erase  # previous image is not cleaned
+d.barscale units=meters style=solid length=${BAR_LENGTH} \
+    at=${BAR_AT} fontsize=${FONTSIZE}
+d.legend -s -b raster=ff_relative_count_5 border_color=none at=${LEGEND_AT} \
+    label_values=0,0.1,0.2,0.3,0.4,0.5 range=0,.50 fontsize=${FONTSIZE} \
+    title="Relative count"
+d.mon stop=cairo
+
+# combine images
+GEOMETRY="+6+2"
+montage ff_count_[0-9].png count_legend.png \
+    -geometry $GEOMETRY -tile x1 count_all.png
+montage ff_relative_count_[0-9].png relative_count_legend.png \
+    -geometry $GEOMETRY -tile x1 relative_count_all.png
+montage count_all.png relative_count_all.png \
+    -geometry $GEOMETRY -tile 1x counts_all.png
+mogrify -trim counts_all.png
