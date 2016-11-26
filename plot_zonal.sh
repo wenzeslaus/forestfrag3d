@@ -25,7 +25,7 @@ C10=#6A3D9A
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0"
 
-CATS=`v.category zones -g op=print | sort | uniq`
+CATS=`v.category zones -g op=print | sort -g | uniq`
 
 # zone colors according to category (max 10 categories)
 ZONE_COLORS="y_color="
@@ -67,7 +67,7 @@ done
 d.mon start=cairo output=zonal_plot_${MAP}.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.linegraph x_file=x.txt \
-    y_file=`ls file_ff_slice_*.txt -1 | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
+    y_file=`ls file_ff_slice_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     ${ZONE_COLORS} $OPTIONS
 d.legend.vect at=85,98 input=legend.txt
 d.mon stop=cairo
@@ -88,7 +88,7 @@ done
 d.mon start=cairo output=zonal_plot_${MAP}.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
-    y_file=`ls file_${MAP}_*.txt -1 | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
+    y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
 d.legend.vect at=85,98 input=legend.txt
 d.mon stop=cairo
@@ -109,7 +109,7 @@ done
 d.mon start=cairo output=zonal_plot_${MAP}.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
-    y_file=`ls file_${MAP}_*.txt -1 | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
+    y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
 d.legend.vect at=85,98 input=legend.txt
 d.mon stop=cairo
@@ -130,7 +130,7 @@ done
 d.mon start=cairo output=zonal_plot_${MAP}.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
-    y_file=`ls file_${MAP}_*.txt -1 | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
+    y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
 d.legend.vect at=85,98 input=legend.txt
 d.mon stop=cairo

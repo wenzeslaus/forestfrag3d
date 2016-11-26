@@ -22,7 +22,7 @@ C10=#6A3D9A
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5"
 
-CATS=`v.category zones -g op=print | sort | uniq`
+CATS=`v.category zones -g op=print | sort -g | uniq`
 
 # zone colors according to category (max 10 categories)
 ZONE_COLORS=""
@@ -58,7 +58,7 @@ do
         width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
     d.erase  # previous image is not cleaned
     d.linegraph x_file=x.txt \
-        y_file=`ls file_${MAP}_cat_*.txt -1 | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
+        y_file=`ls file_${MAP}_cat_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
         $COMMON_OPTIONS y_color=$ZONE_COLORS
     d.legend.vect at=85,98 input=legend.txt
     d.mon stop=cairo
