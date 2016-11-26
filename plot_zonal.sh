@@ -175,6 +175,16 @@ do
     d.mon start=cairo output=zonal_plot_n_pf_pff_zone_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
     d.erase  # previous image is not cleaned
     d.linegraph x_file=x.txt y_file=file_n_slice_$CAT.txt,file_pf_slice_$CAT.txt,file_pff_slice_$CAT.txt $OPTIONS $COLORS4
-    d.legend.vect at=85,98 input=legend_n_pf_pff.txt
+    d.legend.vect at=80,95 input=legend_n_pf_pff.txt
     d.mon stop=cairo
 done
+
+# all zones combined
+convert `ls -v zonal_plot_n_pf_pff_zone_*.png` miff:- | \
+    montage - -geometry +2+2 -tile 3x3 miff:- | \
+    convert - zonal_plot_n_pf_pff_all_zones.png
+
+# two selected zones combined
+convert zonal_plot_n_pf_pff_zone_1.png zonal_plot_n_pf_pff_zone_3.png miff:- | \
+    montage - -geometry +2+2 -tile 2x miff:- | \
+    convert - zonal_plot_n_pf_pff.png
