@@ -7,28 +7,6 @@ eval `g.region -g`
 DESIRED_WIDTH=500
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
-# some cubehelix
-C1=26:24:52
-C2=21:69:78
-C3=43:111:57
-C4=116:122:50
-C5=193:121:111
-C6=211:143:197
-C7=194:193:242
-C8=206:235:239
-
-# named
-C1=orange
-C2=red
-C3=blue
-C4=green
-C5=violet
-C6=aqua
-C7=magenta
-C8=brown
-C9=194:193:242
-C10=43:111:57
-
 # Palettable CB Paired_10 (not printable, not blind)
 C1=#A6CEE3
 C2=#1F78B4
