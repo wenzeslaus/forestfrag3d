@@ -12,14 +12,15 @@ eval `g.region -g`
 #    d.mon stop=cairo
 #done
 
-DESIRED_WIDTH=500
+DESIRED_WIDTH=1000
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 START=50.3
 END=49.7
 
 BAR_LENGTH=200
-BAR_AT=0,16
+BAR_AT=5,10
+FONT_SIZE=20
 
 # TODO: fix ff and slicing, so we already have a color table here
 r.colors map=`g.list raster -e pattern="^ff_slice_[0-9]+" sep=comma` raster_3d=ff
@@ -34,7 +35,8 @@ d.frame -c frame=f_bl at=0,$END,0,$END
 d.rast map=ff_slice_00025
 d.frame -c frame=f_br at=0,$END,$START,100
 d.rast map=ff_slice_00035
-d.barscale units=meters style=solid bgcolor=none length=${BAR_LENGTH} at=30,16
+d.barscale units=meters style=solid bgcolor=none length=${BAR_LENGTH} \
+    at=35,8 fontsize=${FONT_SIZE}
 d.mon stop=cairo
 
 # in display_sw_smaller, it is 0-30
@@ -110,15 +112,17 @@ d.mon stop=cairo
 d.mon start=cairo output=main_category.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.frame -c frame=f_tl at=$START,100,0,$END
-d.rast map=ff_series_05_max_raster
-d.frame -c frame=f_tr at=$START,100,$START,100
 d.rast map=ff_series_15_max_raster
+d.frame -c frame=f_tr at=$START,100,$START,100
+d.rast map=ff_series_05_max_raster
 d.frame -c frame=f_bl at=0,$END,0,$END
-#d.rast map=ff_series_05_max_raster_neighbors
-d.barscale units=meters style=solid length=${BAR_LENGTH} at=${BAR_AT}
-d.legend -b -c raster=ff_series_05_max_raster border_color=none at=10,100,65,75 fontsize=10
-d.frame -c frame=f_br at=0,$END,$START,100
 d.rast map=ff_series_15_max_raster_neighbors
+d.frame -c frame=f_br at=0,$END,$START,100
+#d.rast map=ff_series_05_max_raster_neighbors
+d.barscale units=meters style=solid length=${BAR_LENGTH} at=${BAR_AT} \
+    fontsize=${FONT_SIZE}
+d.legend -b -c raster=ff_series_05_max_raster border_color=none \
+    at=10,100,10,20 fontsize=${FONT_SIZE}
 d.mon stop=cairo
 
 # 2x3 (2x4) image
