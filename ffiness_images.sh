@@ -19,24 +19,22 @@ C8=#FF7F00
 C9=#CAB2D6
 C10=#6A3D9A
 
-ZONE_COLORS="$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$C9,$C10"
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5"
 
-cat > legend.txt <<EOF
-1|legend/line|5|ps|$C1|$C1|$LINE_WIDTH|line|1
-2|legend/line|5|ps|$C2|$C2|$LINE_WIDTH|line|1
-3|legend/line|5|ps|$C3|$C3|$LINE_WIDTH|line|1
-4|legend/line|5|ps|$C4|$C4|$LINE_WIDTH|line|1
-5|legend/line|5|ps|$C5|$C5|$LINE_WIDTH|line|1
-6|legend/line|5|ps|$C6|$C6|$LINE_WIDTH|line|1
-7|legend/line|5|ps|$C7|$C7|$LINE_WIDTH|line|1
-8|legend/line|5|ps|$C8|$C8|$LINE_WIDTH|line|1
-9|legend/line|5|ps|$C9|$C9|$LINE_WIDTH|line|1
-10|legend/line|5|ps|$C10|$C10|$LINE_WIDTH|line|1
-EOF
-
 CATS=`v.category zones -g op=print | sort | uniq`
+
+# zone colors according to category (max 10 categories)
+ZONE_COLORS=""
+> legend.txt  # ensures empty existing file
+for C in ${COLORS//,/ }; do echo "1|legend/line|5|ps|$C|$C|$LINE_WIDTH|line|1"; done
+for CAT in $CATS
+do
+    eval "COLOR=\$C$CAT"
+    ZONE_COLORS+="$COLOR,"
+    echo "$CAT|legend/line|5|ps|$COLOR|$COLOR|$LINE_WIDTH|line|1" >> legend.txt
+done
+ZONE_COLORS=${ZONE_COLORS%?}
 
 seq 1 1 46 > x.txt
 
