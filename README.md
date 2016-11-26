@@ -4,13 +4,23 @@
 
 ## Running
 
+### Build directly from the remote repository
+
+Build based on the content of the Git repository:
+
+    docker build -t forestfrag3d https://github.com/wenzeslaus/forestfrag3d.git
+
+Start the processing (you need an existing empty directory):
+
+    docker run --rm -v /home/.../ffdata:/data -it forestfrag3d /code/run.sh
+
 ### Get the repository content
 
 Either download ZIP from the GitHub repository website or use Git:
 
     git clone https://github.com/wenzeslaus/forestfrag3d.git
 
-### Build and run
+### Build and run from local code
 
 In the command line, enter into the repository directory (there should
 be a Dockerfile), for example:
@@ -42,16 +52,6 @@ purposes, there is a small area which takes about 5 minutes to compute.
 To run just the test area, add `test` parameter to the main script:
 
     docker run ... /code/run.sh test
-
-### Build directly from the remote repository
-
-Build based on the content of the Git repository:
-
-    docker build -t forestfrag3d https://github.com/wenzeslaus/forestfrag3d.git
-
-Start the processing (you need an existing empty directory):
-
-    docker run --rm -v /home/.../ffdata:/data -it forestfrag3d /code/run.sh
 
 ### Run part of the processing
 
@@ -92,6 +92,13 @@ variable to change the region just for the specific process:
         -it forestfrag3d \
         grass /data/grassdata/nc_location/PERMANENT --exec \
             /code/ground.sh
+
+Note that sometimes, you may need to delete some of the generated files
+or run more steps one by one to ensure smooth run without errors,
+for example the text files with data for plots should be deleted when
+changing the zones:
+
+    rm -r /home/.../ffdata/images/*.txt
 
 ## Files
 
