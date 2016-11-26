@@ -1,7 +1,5 @@
 #!/bin/bash
 
-v.db.addtable zones
-
 for MAP in `g.list rast p="ff_slice_*"`
 do
     v.rast.stats map=zones raster=$MAP column_prefix=$MAP method=average,stddev

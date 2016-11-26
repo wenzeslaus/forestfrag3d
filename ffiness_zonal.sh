@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#v.db.droptable map=classes layer=2 -f
-#v.db.addtable map=classes layer=2
-
 for C in 0 1 2 3 4 5
 do
     for MAP in `g.list rast p="ff_${C}_slice_*"`
