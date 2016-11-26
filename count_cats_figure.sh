@@ -33,11 +33,14 @@ g.region s=s-1
 export GRASS_FONT="DejaVu Sans:Book"
 eval `g.region -g`
 
-DESIRED_WIDTH=300
+DESIRED_WIDTH=500
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 FONT_SIZE=7
-GRID_WIDTH=1
+GRID_WIDTH=3
+SURFACE_WIDTH=12
+GRID_COLOR=126:126:126
+SURFACE_COLOR=0:29:90
 
 v.in.ascii input=- format=standard -n output=count_categories_explanation_line <<EOF
 L 7 1
@@ -55,11 +58,11 @@ r.colors map=count_categories_explanation_cells rules=- <<EOF
 1 #ff9200
 EOF
 
-d.mon start=cairo output=count_categories.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
+d.mon start=cairo output=count_categories_simple.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
 d.erase  # previous image is not cleaned
 d.rast map=count_categories_explanation_cells
 d.vect map=count_categories_explanation_grid \
-    color=26:26:26 fill_color=none width=$GRID_WIDTH
+    color=$GRID_COLOR fill_color=none width=$GRID_WIDTH
 # TODO: replace by geographical coordinates
 d.text text="1" at=7.3,7.3 align=cc color=black size=$FONT_SIZE
 d.text text="2" at=21.6,7.3 align=cc color=black size=$FONT_SIZE
@@ -74,8 +77,8 @@ d.mon start=cairo output=count_categories_surface.png width=$DESIRED_WIDTH heigh
 d.erase  # previous image is not cleaned
 d.rast map=count_categories_explanation_cells
 d.vect map=count_categories_explanation_grid \
-    color=26:26:26 fill_color=none width=$GRID_WIDTH
-d.vect map=count_categories_explanation_line color=0:29:90 width=8
+    color=$GRID_COLOR fill_color=none width=$GRID_WIDTH
+d.vect map=count_categories_explanation_line color=$SURFACE_COLOR width=$SURFACE_WIDTH
 # TODO: replace by geographical coordinates
 d.text text="1" at=7.3,7.3 align=cc color=black size=$FONT_SIZE
 d.text text="2" at=21.6,7.3 align=cc color=black size=$FONT_SIZE
@@ -86,8 +89,12 @@ d.text text="0" at=78.7,7.3 align=cc color=black size=$FONT_SIZE
 d.text text="3" at=92.7,7.3 align=cc color=black size=$FONT_SIZE
 d.mon stop=cairo
 
-# TODO: trim fails as there is something left on the sides
-mogrify -trim count_categories.png count_categories_surface.png
+# trim bottom
+mogrify -trim count_categories_simple.png count_categories_surface.png
+
+# combine into one
+montage count_categories_simple.png count_categories_surface.png \
+    -geometry +6+2 -tile 2x count_categories.png
 
 # remove temporary region
 g.remove -f type=region name=$WIND_OVERRIDE

@@ -4,7 +4,8 @@ export GRASS_FONT="DejaVu Sans:Book"
 
 eval `g.region -g`
 
-DESIRED_WIDTH=500
+# we need more than 500 because of whitespace and trimming
+DESIRED_WIDTH=560
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 # Paul Tol's Alternative Scheme for Qualitative Data
@@ -24,6 +25,7 @@ C10=#999933
 
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5"
+LEGEND_POS=80,95
 
 CATS=`v.category zones -g op=print | sort -g | uniq`
 
@@ -63,6 +65,16 @@ do
     d.linegraph x_file=x.txt \
         y_file=`ls file_${MAP}_cat_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
         $COMMON_OPTIONS y_color=$ZONE_COLORS
-    d.legend.vect at=85,98 input=legend.txt
+    d.legend.vect at=$LEGEND_POS input=legend.txt
     d.mon stop=cairo
 done
+
+# combine images
+
+GEOMETRY="+12+4"
+
+# combine abs surface and rel into one
+# trim white edges
+mogrify -trim zonal_plot_ff_4_slice.png zonal_plot_ff_5_slice.png
+montage zonal_plot_ff_4_slice.png zonal_plot_ff_5_slice.png \
+    -geometry $GEOMETRY -tile 2x zonal_plot_ff_slice_percentage.png

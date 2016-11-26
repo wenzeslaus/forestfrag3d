@@ -7,7 +7,8 @@ seq 0 1 5 > x_count.txt
 
 eval `g.region -g`
 
-DESIRED_WIDTH=500
+# we need more than 500 because of whitespace and trimming
+DESIRED_WIDTH=560
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 # Paul Tol's Alternative Scheme for Qualitative Data
@@ -27,6 +28,7 @@ C10=#999933
 
 LINE_WIDTH=3
 YTICS="0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0"
+LEGEND_POS=80,95
 
 CATS=`v.category zones -g op=print | sort -g | uniq`
 
@@ -72,7 +74,7 @@ d.erase  # previous image is not cleaned
 d.linegraph x_file=x.txt \
     y_file=`ls file_ff_slice_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     ${ZONE_COLORS} $OPTIONS
-d.legend.vect at=85,98 input=legend.txt
+d.legend.vect at=$LEGEND_POS input=legend.txt
 d.mon stop=cairo
 
 MAP="ff_count"
@@ -93,7 +95,7 @@ d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
     y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
-d.legend.vect at=85,98 input=legend.txt
+d.legend.vect at=$LEGEND_POS input=legend.txt
 d.mon stop=cairo
 
 MAP="ff_surface_count"
@@ -114,7 +116,7 @@ d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
     y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
-d.legend.vect at=85,98 input=legend.txt
+d.legend.vect at=$LEGEND_POS input=legend.txt
 d.mon stop=cairo
 
 MAP="ff_relative_count"
@@ -135,7 +137,7 @@ d.erase  # previous image is not cleaned
 d.linegraph x_file=x_count.txt \
     y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
-d.legend.vect at=85,98 input=legend.txt
+d.legend.vect at=$LEGEND_POS input=legend.txt
 d.mon stop=cairo
 
 OPTIONS="y_range=0,0.5 y_tics=$YTICS width=$LINE_WIDTH"
@@ -175,16 +177,28 @@ do
     d.mon start=cairo output=zonal_plot_n_pf_pff_zone_$CAT.png width=$DESIRED_WIDTH height=$DESIRED_HEIGHT
     d.erase  # previous image is not cleaned
     d.linegraph x_file=x.txt y_file=file_n_slice_$CAT.txt,file_pf_slice_$CAT.txt,file_pff_slice_$CAT.txt $OPTIONS $COLORS4
-    d.legend.vect at=80,95 input=legend_n_pf_pff.txt
+    d.legend.vect at=$LEGEND_POS input=legend_n_pf_pff.txt
     d.mon stop=cairo
 done
 
+# combine images
+
+GEOMETRY="+12+4"
+
+# combine abs surface and rel into one
+# trim white edges
+mogrify -trim zonal_plot_ff_surface_count.png zonal_plot_ff_relative_count.png
+montage zonal_plot_ff_surface_count.png zonal_plot_ff_relative_count.png \
+    -geometry $GEOMETRY -tile 2x zonal_plot_ff_count.png
+
+mogrify -trim zonal_plot_n_pf_pff_zone_*.png
+
 # all zones combined
 convert `ls -v zonal_plot_n_pf_pff_zone_*.png` miff:- | \
-    montage - -geometry +2+2 -tile 3x3 miff:- | \
+    montage - -geometry +4+4 -tile 3x3 miff:- | \
     convert - zonal_plot_n_pf_pff_all_zones.png
 
-# two selected zones combined
+# n pf pff: two selected zones combined
 convert zonal_plot_n_pf_pff_zone_1.png zonal_plot_n_pf_pff_zone_3.png miff:- | \
-    montage - -geometry +2+2 -tile 2x miff:- | \
+    montage - -geometry $GEOMETRY -tile 2x miff:- | \
     convert - zonal_plot_n_pf_pff.png
