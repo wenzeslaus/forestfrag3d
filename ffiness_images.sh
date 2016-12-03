@@ -24,7 +24,7 @@ C9=#44AA99
 C10=#999933
 
 LINE_WIDTH=3
-YTICS="0.0,0.1,0.2,0.3,0.4,0.5"
+YTICS="0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8"
 LEGEND_POS=80,95
 
 CATS=`v.category zones -g op=print | sort -g | uniq`
