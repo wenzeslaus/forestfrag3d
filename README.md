@@ -31,7 +31,8 @@ Build the content using Docker:
 
     docker build -t forestfrag3d .
 
-The time to build it for the first time is about 12 minutes.
+The time to build it for the first time is about 12 minutes
+plus the time to download the basic parts.
 You will need to build it again after every change of the scripts
 (or of the Dockerfile) but these builds will usually take just few
 seconds depending on the changes you did.
