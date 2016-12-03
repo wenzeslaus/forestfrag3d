@@ -2,7 +2,12 @@
 
 export GRASS_FONT="DejaVu Sans:Book"
 
-seq 1 1 46 > x.txt
+CELL_START=1
+CELL_END=46
+CELL_RES=3  # in feet
+CELLS_TO_M=`python -c "print($CELL_RES / 3.28084)"`
+seq $CELL_START 1 $CELL_END > x.txt
+
 seq 0 1 5 > x_count.txt
 
 eval `g.region -g`
@@ -56,7 +61,7 @@ EOF
 COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
 
 MAP="ff_slice"
-OPTIONS="y_range=0,5 width=$LINE_WIDTH"
+OPTIONS="y_range=0,5 width=$LINE_WIDTH x_scale=$CELLS_TO_M -x"
 
 for CAT in ${CATS}
 do
@@ -140,7 +145,7 @@ d.linegraph x_file=x_count.txt \
 d.legend.vect at=$LEGEND_POS input=legend.txt
 d.mon stop=cairo
 
-OPTIONS="y_range=0,0.5 y_tics=$YTICS width=$LINE_WIDTH"
+OPTIONS="y_range=0,0.5 y_tics=$YTICS width=$LINE_WIDTH x_scale=$CELLS_TO_M -x"
 
 for MAP in "n_slice" "mean_slice"
 do
@@ -155,7 +160,7 @@ do
     done
 done
 
-OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH"
+OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH x_scale=$CELLS_TO_M -x"
 
 for MAP in "pf_slice" "pff_slice"
 do
@@ -170,7 +175,7 @@ do
     done
 done
 
-OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH"
+OPTIONS="y_range=0,1 y_tics=$YTICS width=$LINE_WIDTH x_scale=$CELLS_TO_M -x"
 
 for CAT in ${CATS}
 do

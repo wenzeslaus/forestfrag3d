@@ -41,10 +41,14 @@ do
 done
 ZONE_COLORS=${ZONE_COLORS%?}
 
-seq 1 1 46 > x.txt
+CELL_START=1
+CELL_END=46
+CELL_RES=3  # in feet
+CELLS_TO_M=`python -c "print($CELL_RES / 3.28084)"`
+seq $CELL_START 1 $CELL_END > x.txt
 
-COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS" # y_range=0,0.6
-
+COMMON_OPTIONS="width=$LINE_WIDTH ytics=$YTICS x_scale=$CELLS_TO_M -x" # y_range=0,0.6
+set -e
 for F in 0 1 2 3 4 5
 do
     MAP=ff_${F}_slice
