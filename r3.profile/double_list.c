@@ -2,9 +2,9 @@
  * Functionality to handle list of doubles
  *
  * Authors:
- *   Vaclav Petras <wenzeslaus gmail com>
+ *   Removed for double-blind review <... ... ...>
  *
- * Copyright 2015-2016 by Vaclav Petras, and the GRASS Development Team
+ * Copyright 2015-2016 by Removed for double-blind review, and the GRASS Development Team
  *
  * This program is free software licensed under the GPL (>=v2).
  * Read the COPYING file that comes with GRASS for details.

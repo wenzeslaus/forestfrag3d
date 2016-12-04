@@ -3,7 +3,7 @@
  * MODULE:       r3.profile (based on r.profile)
  *
  * AUTHOR(S):    Bob Covill <bcovill tekmap.ns.ca> (r.profile)
- *               Vaclav Petras <wenzeslaus gmail com> (r3.profile)
+ *               Removed for double-blind review <... ... ...> (r3.profile)
  *
  * PURPOSE:      Profiles (slices vertically) 3D raster at 2D coordinates
  *

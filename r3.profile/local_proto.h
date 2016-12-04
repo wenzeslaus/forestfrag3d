@@ -3,7 +3,7 @@
  *
  * Authors:
  *   Bob Covill <bcovill tekmap.ns.ca>
- *   Vaclav Petras <wenzeslaus gmail com>
+ *   Removed for double-blind review <... ... ...>
  *
  * Copyright 2000-2016 by Bob Covill, and the GRASS Development Team
  *
