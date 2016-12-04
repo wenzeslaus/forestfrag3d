@@ -1,6 +1,6 @@
 # forestfrag3d
 
-[![Build Status](https://travis-ci.org/wenzeslaus/forestfrag3d.svg?branch=master)](https://travis-ci.org/wenzeslaus/forestfrag3d)
+[![Build Status](https://travis-ci.org/...svg?branch=master)](https://travis-ci.org/...)
 
 ## Running
 
@@ -8,7 +8,7 @@
 
 Build based on the content of the Git repository:
 
-    docker build -t forestfrag3d https://github.com/wenzeslaus/forestfrag3d.git
+    docker build -t forestfrag3d https://github.com/...git
 
 Start the processing (you need an existing empty directory):
 
@@ -18,7 +18,7 @@ Start the processing (you need an existing empty directory):
 
 Either download ZIP from the GitHub repository website or use Git:
 
-    git clone https://github.com/wenzeslaus/forestfrag3d.git
+    git clone https://github.com/....git
 
 ### Build and run from local code
 
