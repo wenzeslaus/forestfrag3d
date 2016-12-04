@@ -88,14 +88,20 @@ RUN grass -c EPSG:4326 /tmp/grasstmploc -e
 ENV addons=https://svn.osgeo.org/grass/grass-addons/grass7
 
 WORKDIR /usr/local/src
-RUN svn checkout -r 69857 $addons/raster3d/r3.count.categories r3.count.categories \
-    && grass /tmp/grasstmploc/PERMANENT --exec \
+# execute to get the source locally:
+# addons=https://svn.osgeo.org/grass/grass-addons/grass7
+# svn checkout -r 69857 $addons/raster3d/r3.count.categories r3.count.categories
+# svn checkout -r 69888 $addons/raster3d/r3.forestfrag r3.forestfrag
+# svn checkout -r 69887 $addons/raster3d/r3.profile r3.profile
+# rm -r */.svn
+COPY r3.count.categories /usr/local/src/r3.count.categories
+RUN grass /tmp/grasstmploc/PERMANENT --exec \
         g.extension -s r3.count.categories url=r3.count.categories
-RUN svn checkout -r 69888 $addons/raster3d/r3.forestfrag r3.forestfrag \
-    && grass /tmp/grasstmploc/PERMANENT --exec \
+COPY r3.forestfrag /usr/local/src/r3.forestfrag
+RUN grass /tmp/grasstmploc/PERMANENT --exec \
         g.extension -s r3.forestfrag url=r3.forestfrag
-RUN svn checkout -r 69887 $addons/raster3d/r3.profile r3.profile \
-    && grass /tmp/grasstmploc/PERMANENT --exec \
+COPY r3.profile /usr/local/src/r3.profile
+RUN grass /tmp/grasstmploc/PERMANENT --exec \
         g.extension -s r3.profile url=r3.profile
 RUN rm -r /tmp/grasstmploc
 
