@@ -1,11 +1,7 @@
 <h2>DESCRIPTION</h2>
 
-TODO: Create a description specific for 3D version
-
-<em>r.forestfrag</em> Computes the forest fragmentation following 
-the methodology proposed by Riitters et. al (2000). See 
-<a href="http://www.consecol.org/vol4/iss2/art3/">this article</a> for a 
-detailed explanation.
+<em>r3.forestfrag</em> Computes the 3D fragmentation index following
+the methodology proposed by Riitters et. al (2000) for 2D.
 
 <p>It follows a "sliding window" algorithm with overlapping windows. 
 The amount of forest and its occurence as adjacent forest pixels 
@@ -55,13 +51,10 @@ to set the region to match the input layer.
 </ul>
 
 <h2>SEE ALSO</h2>
-The addon is based on the
-<a href="http://grasswiki.osgeo.org/wiki/AddOns/GRASS_6#r.forestfrag>">
-r.forestfrag.sh</a> script, with as extra options user-defined
-moving window size, option to trim the region (by default it
-respects the region) and a better handling of no-data cells.
+The addon is based on the revised version of r.forestfrag.
 
 <h2>AUTHORS</h2>
+<em>Vaclav Petras<em>: 3D version<br>
 <em>Paulo van Breugel<em>: Rewritten in Python, added option to set
 moving window size, and improved handling no-data cells 
 <em>Stefan Sylla</em>: Revised / updated the r.forestfrag.sh for
