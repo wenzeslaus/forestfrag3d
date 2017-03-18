@@ -1,4 +1,4 @@
-DIGIT NAME:   ...
+DIGIT NAME:   vpetras
 MAP NAME:     Selected zones in the study area
 MAP DATE:     Tue Oct  4 21:54:17 2016
 OTHER INFO:   v.out.ascii input=zones layer=-1 type=boundary,centroid format=standard precision=2 | sed 's/\s*$//g'
