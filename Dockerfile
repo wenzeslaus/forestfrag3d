@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Removed for double-blind review <... ... ...>
+MAINTAINER Vaclav Petras <wenzeslaus@gmail.com>
 
 # system environment
 ENV DEBIAN_FRONTEND noninteractive

@@ -3,9 +3,9 @@
 ############################################################################
 #
 # MODULE:        r3_forestfrag_trivial
-# AUTHOR:        Removed for double-blind review
+# AUTHOR:        Vaclav Petras
 # PURPOSE:       Test using a small example computed by hand
-# COPYRIGHT:     (C) 2016 by Removed for double-blind review and the GRASS Development Team
+# COPYRIGHT:     (C) 2016 by Vaclav Petras and the GRASS Development Team
 #
 #                This program is free software under the GNU General Public
 #                License (>=v2). Read the file COPYING that comes with GRASS

@@ -5,7 +5,7 @@
 #
 # MODULE:    r3.forestfrag
 #
-# AUTHOR(S): Removed for double-blind review (based on r.forestfrag, ... ... ...)
+# AUTHOR(S): Vaclav Petras (based on r.forestfrag, wenzeslaus gmail com)
 #            Emmanuel Sambale (original shell version)
 #            Stefan Sylla (original shell version)
 #            Paulo van Breugel (Python version, paulo@ecodiv.org)
