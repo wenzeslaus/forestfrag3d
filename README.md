@@ -101,6 +101,15 @@ changing the zones:
 
     rm -r /home/.../ffdata/images/*.txt
 
+## Inspecting results
+
+There is a lot of additional images in the directory `images`.
+Furthermore, if you have GRASS GIS installed locally, you can open
+the created GRASS GIS mapset and explore all the data, for example,
+using the following command:
+
+    grass7 /home/../ffdata/grassdata/nc_location/PERMANENT
+
 ## Files
 
 ### Point cloud
