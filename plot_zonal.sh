@@ -122,6 +122,8 @@ d.linegraph x_file=x_count.txt \
     y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
 d.legend.vect at=$LEGEND_POS input=legend.txt
+d.text text="Fragmentation class" color=black align=cc at=52,11 size=6
+d.text text="Absolute count" color=black align=uc at=0,55 rotation=90 size=6
 d.mon stop=cairo
 
 MAP="ff_relative_count"
@@ -143,6 +145,8 @@ d.linegraph x_file=x_count.txt \
     y_file=`ls file_${MAP}_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
     $OPTIONS ${ZONE_COLORS}
 d.legend.vect at=$LEGEND_POS input=legend.txt
+d.text text="Fragmentation class" color=black align=cc at=52,11 size=6
+d.text text="Relative count" color=black align=uc at=0,55 rotation=90 size=6
 d.mon stop=cairo
 
 OPTIONS="y_range=0,0.5 y_tics=$YTICS width=$LINE_WIDTH x_scale=$CELLS_TO_M -x"
@@ -183,6 +187,8 @@ do
     d.erase  # previous image is not cleaned
     d.linegraph x_file=x.txt y_file=file_n_slice_$CAT.txt,file_pf_slice_$CAT.txt,file_pff_slice_$CAT.txt $OPTIONS $COLORS4
     d.legend.vect at=$LEGEND_POS input=legend_n_pf_pff.txt
+    d.text text="Height in meters" color=black align=cc at=52,11 size=6
+    d.text text="Average values of n, pf, pff" color=black align=uc at=0,55 rotation=90 size=6
     d.mon stop=cairo
 done
 
