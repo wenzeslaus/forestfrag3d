@@ -6,7 +6,7 @@
 
 This is a repository for reproducibility of the following paper:
 
-Vaclav Petras, Douglas J. Newcomb and Helena Mitasova: Generalized 3D fragmentation index derived from lidar point clouds. Open Geospatial Data, Software and Standards 2017 2:9. http://dx.doi.org/10.1186/s40965-017-0021-8
+Vaclav Petras, Douglas J. Newcomb and Helena Mitasova: Generalized 3D fragmentation index derived from lidar point clouds. Open Geospatial Data, Software and Standards 2017 2:9. https://doi.org/10.1186/s40965-017-0021-8
 
 ## Running
 
