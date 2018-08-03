@@ -5,12 +5,13 @@ sudo: required
 services:
   - docker
 
-install:
+before_install:
   - docker build -t forestfrag3d .
   - mkdir ffdata
+  - docker run --rm -v $(pwd)/ffdata:/data -it forestfrag3d
 
 script:
-  - docker run --rm -v $(pwd)/ffdata:/data -it forestfrag3d /code/run.sh test
+  - /code/run.sh test
 
 notifications:
   email:
