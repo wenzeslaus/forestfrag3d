@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # GRASS GIS compile dependencies
 RUN apt-get update \
-    && apt-get install -y --install-recommends \
+    && apt-get install -y \
         autoconf2.13 \
         autotools-dev \
         bison \
@@ -44,12 +44,6 @@ RUN apt-get update \
         python-ply \
         unixodbc-dev \
         zlib1g-dev \
-    && apt-get autoremove \
-    && apt-get clean
-
-# other software
-RUN apt-get update \
-    && apt-get install -y --install-recommends \
         imagemagick \
         p7zip \
         subversion \
@@ -57,7 +51,7 @@ RUN apt-get update \
     && apt-get clean
 
 # install GRASS GIS
-# using a specific revision, otherwise we can't apply the path safely
+# using a specific revision, otherwise we can't apply the patch safely
 WORKDIR /usr/local/src
 RUN svn checkout -r 69986 https://svn.osgeo.org/grass/grass/trunk grass \
     && cd grass \
