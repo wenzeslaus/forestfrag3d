@@ -11,9 +11,11 @@ else
     exit 1
 fi
 
-if ! [ -w /data ]
+# fail fast when permissions are not right
+if [ ! -w /data ]
+then
     >&2 echo "Directory is not writable: /data"
-    >&2 echo "See the permissions:"
+    >&2 echo "See its permissions:"
     >&2 ls -la /data
     exit 1
 fi
