@@ -8,6 +8,7 @@ services:
 before_install:
   - docker build -t forestfrag3d .
   - mkdir ffdata
+  - chown -R $USER:$USER ffdata
   - docker run --rm -v $(pwd)/ffdata:/data -it forestfrag3d /code/run.sh test
 
 notifications:
