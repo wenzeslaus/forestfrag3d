@@ -11,6 +11,13 @@ else
     exit 1
 fi
 
+if ! [ -w /data ]
+    >&2 echo "Directory is not writable: /data"
+    >&2 echo "See the permissions:"
+    >&2 ls -la /data
+    exit 1
+fi
+
 GRASSDATA=/data/grassdata/nc_location/PERMANENT
 
 # create GRASS GIS location
