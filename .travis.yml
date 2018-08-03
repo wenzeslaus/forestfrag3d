@@ -7,7 +7,8 @@ services:
 
 before_install:
   - docker build -t forestfrag3d .
-  - docker run --rm -v $(pwd):/data -it forestfrag3d /code/run.sh test
+  - docker volume create --name data-volume
+  - docker run --rm -v data-volume:/data -it forestfrag3d /code/run.sh test
 
 notifications:
   email:
