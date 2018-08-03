@@ -145,6 +145,7 @@ DESIRED_WIDTH=600
 DESIRED_HEIGHT=`python -c "print $DESIRED_WIDTH / float($cols) * $rows"`
 
 FONTSIZE=20
+TITLE_FONTSIZE=26
 BAR_LENGTH=200
 BAR_AT=0,5
 LEGEND_AT=10,85,2,12
@@ -176,7 +177,7 @@ d.erase  # previous image is not cleaned
 # flipping the integer legend
 d.legend -s -b -f raster=ff_count_5 border_color=none at=${LEGEND_AT} \
     label_values=0,5,10,15,20 fontsize=${FONTSIZE} \
-    title="Absolute count"
+    title="Absolute count" title_fontsize=${TITLE_FONTSIZE}
 d.mon stop=cairo
 
 # relative surface legend
@@ -187,7 +188,7 @@ d.barscale units=meters style=solid length=${BAR_LENGTH} \
     at=${BAR_AT} fontsize=${FONTSIZE}
 d.legend -s -b raster=ff_relative_count_5 border_color=none at=${LEGEND_AT} \
     label_values=0,0.1,0.2,0.3,0.4,0.5 range=0,.50 fontsize=${FONTSIZE} \
-    title="Relative count"
+    title="Relative count" title_fontsize=${TITLE_FONTSIZE}
 d.mon stop=cairo
 
 # combine images
