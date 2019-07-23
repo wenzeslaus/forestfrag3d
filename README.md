@@ -12,6 +12,15 @@ Vaclav Petras, Douglas J. Newcomb and Helena Mitasova: Generalized 3D fragmentat
 
 ## Running
 
+### Run in Code Ocean
+
+The content of the repository, specifically the submission branch, was
+transfered to a Code Ocean capsule. You can run the code at Code Ocean
+using the link above.
+
+At this point, Code Ocean capsule can be cloned as another Git
+repository independent from this one on GitHub.
+
 ### Build directly from the remote repository
 
 Build based on the content of the Git repository:
