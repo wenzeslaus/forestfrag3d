@@ -70,6 +70,8 @@ do
         y_file=`ls file_${MAP}_cat_*.txt -1v | tr '\n' ',' | sed 's/\(.*\),/\1/'` \
         $COMMON_OPTIONS y_color=$ZONE_COLORS
     d.legend.vect at=$LEGEND_POS input=legend.txt
+    d.text text="Height in meters" color=black align=cc at=52,11 size=6
+    d.text text="Fragmentation class percentage" color=black align=uc at=0,55 size=6 rotation=90
     d.mon stop=cairo
 done
 

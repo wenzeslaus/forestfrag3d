@@ -118,6 +118,15 @@ changing the zones:
 
     rm -r /home/.../ffdata/images/*.txt
 
+## Inspecting results
+
+There is a lot of additional images in the directory `images`.
+Furthermore, if you have GRASS GIS installed locally, you can open
+the created GRASS GIS mapset and explore all the data, for example,
+using the following command:
+
+    grass7 /home/../ffdata/grassdata/nc_location/PERMANENT
+
 ## Files
 
 ### Point cloud
@@ -181,6 +190,10 @@ module.
 
 ## Dependencies
 
+These are the dependencies necessary to run the code in this repository.
+When using Docker with the provided Dockerfile, all dependencies are
+installed inside the Docker image automatically.
+
 ### GRASS GIS
 
 A custom build of GRASS GIS is compiled from source code obtained
@@ -192,3 +205,11 @@ to contain NULL values only (see #2992 in GRASS GIS bug tracker).
 The patch with a workaround is included in the file `r3.null.patch`
 and applied during compilation. The patch was created against trunk,
 revision number 69871 from July 7, 2016.
+
+### Other dependencies
+
+Several helper tools are needed such as ImageMagick and p7zip package
+and can be installed under Ubuntu. The GRASS GIS add-on modules
+implementing the presented methods are included in this repository and
+their latest versions can be obtained from the GRASS GIS Add-ons repository.
+The full list of dependencies is specified in the Dockerfile.
